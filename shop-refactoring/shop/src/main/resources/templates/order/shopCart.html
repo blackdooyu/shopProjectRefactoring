@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link   th:href="@{/css/styles.css}"
+            href="/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<div th:replace="/fragments/nav.html :: nav"></div>
+
+
+<form th:if="${orderItem != null}" th:action th:value="${orderItem}" method="post">
+    <table class="table table-striped">
+        <h3>장바구니 목록</h3>
+        <h3 th:if="${error != null}" th:text="${error}"></h3>
+        <thead>
+        <tr>
+            <th>상품 id</th>
+            <th>상품 이름</th>
+            <th>상품 개당가격</th>
+            <th>상품 주문수량</th>
+            <th>상품 총가격</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${orderItem}">
+            <td th:value="${item.id}" th:text="${item.id}"></td>
+            <td  th:text="${item.name}"></td>
+            <td  th:text="${item.price}"></td>
+            <td th:value="${item.count}" th:text="${item.count}"></td>
+            <td  th:text="${item.totalPrice}"></td>
+        </tr>
+        </tbody>
+        <h3 th:text="'합계 :'+${totalPrice} + '원'"></h3>
+    </table>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">구매하기</button>
+</form>
+
+<form th:if="${orderItem != null}" action="/shopCart/delete" method="post">
+    <button class="w-100 btn btn-lg btn-primary" type="submit">장바구니 비우기</button>
+</form>
+
+<form th:if="${orderItem == null}" th:action  method="post">
+    <table class="table table-striped">
+        <h3>장바구니 목록</h3>
+    </table>
+</form>
+
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>

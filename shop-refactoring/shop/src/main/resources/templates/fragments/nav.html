@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+.dropbtn {
+  background-color: #fafafa;
+  color: black;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+    <div class="container px-4 px-lg-5" th:fragment="nav">
+        <a class="navbar-brand" href="/">모아보자</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="/item/list/1?sort=P">상품 판매순</a></li>
+                        <li><a class="dropdown-item" href="/item/list/1?sort=R">상품 최신순</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" th:if="${member == null}">
+                <li><a class="dropdown-item" href="/login">로그인</a></li>
+                <li><a class="dropdown-item" href="/member/add">회원가입</a></li>
+                </button>
+            </form>
+            <form class="d-flex" th:unless="${member == null}">
+                <div class="dropdown">
+                    <button class="dropbtn"  th:text="${member.name}">Dropdown</button>
+                    <div class="dropdown-content" th:if="${member.memberGrade == T(shop.helloshop.domain.entity.MemberGrade).MANAGER}">
+                        <a href="/member/update/check">회원수정</a>
+                        <a th:if="${member.memberGrade == T(shop.helloshop.domain.entity.MemberGrade).MANAGER}" href="/item/select">상품 추가</a>
+                        <a href="/manager/order">배송관리</a>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+
+                    <div class="dropdown-content" th:if="${member.memberGrade == T(shop.helloshop.domain.entity.MemberGrade).BASIC}">
+                        <a href="/member/update/check">회원수정</a>
+                        <a href="/order">장바구니</a>
+                        <a href="/order/list">구매목록</a>
+                        <a href="/logout">로그아웃</a>
+                    </div>
+
+                </div>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+</html>

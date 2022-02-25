@@ -1,0 +1,139 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.84.0">
+    <title>Signin Template · Bootstrap v5.0</title>
+
+
+
+    <!-- Bootstrap core CSS -->
+    <link   th:href="@{/css/styles.css}"
+            href="/css/styles.css" rel="stylesheet" />
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+       .field-error {
+         border-color: #dc3545;
+         color: #dc3545;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+
+    <!-- Custom styles for this template -->
+    <link   th:href="@{/css/signin.css}"
+            href="/css/styles.css" rel="stylesheet" />
+  </head>
+  <body class="text-center">
+
+<main class="form-signin">
+
+  <!--옷 등록 화면 -->
+  <form action="item.html" th:if="${form.itemSize != null}" th:action th:object="${form}" method="post" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 fw-normal">상품 수정</h1>
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+         th:text="${err}">전체 오류 메시지</p>
+    </div>
+
+
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{name}" id="floatingInput" placeholder="name@example.com"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{name}" />
+      <label for="floatingInput">이름</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{price}" id="floatingPassword" placeholder="Password"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{price}" />
+      <label for="floatingPassword">가격</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{quantity}" id="floatingPassword" placeholder="Password"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{quantity}" />
+      <label for="floatingPassword">수량</label>
+    </div>
+    <div class="form-floating">
+      <h3 class="h3 mb-3 fw-normal">사이즈</h3>
+      <select th:field="*{itemSize}">
+        <option th:value=${T(shop.helloshop.domain.entity.items.ItemSize).S} th:text="S"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.ItemSize).M} th:text="M"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.ItemSize).L} th:text="L"></option>
+      </select>
+    </div>
+
+    <li>이미지 파일 첨부<input type="file" multiple="multiple"
+                      name="multipartFileList" ></li>
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">등록</button>
+  </form>
+  <!-- 핸드폰 등록 화면 -->
+  <form action="item.html" th:if="${form.phoneColor != null}" th:action th:object="${form}" method="post" enctype="multipart/form-data">
+    <h1 class="h3 mb-3 fw-normal">상품 수정</h1>
+
+    <div th:if="${#fields.hasGlobalErrors()}">
+      <p class="field-error" th:each="err : ${#fields.globalErrors()}"
+         th:text="${err}">전체 오류 메시지</p>
+    </div>
+
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{name}" id="floatingInput" placeholder="name@example.com"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{name}" />
+      <label for="floatingInput">이름</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{price}" id="floatingPassword" placeholder="Password"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{price}" />
+      <label for="floatingPassword">가격</label>
+    </div>
+    <div class="form-floating">
+      <input type="text" class="form-control" th:field="*{quantity}" id="floatingPassword" placeholder="Password"
+             th:errorclass="field-error">
+      <div class="field-error" th:errors="*{quantity}" />
+      <label for="floatingPassword">수량</label>
+    </div>
+
+    <div class="form-floating">
+      <h3 class="h3 mb-3 fw-normal">색상</h3>
+      <select th:field="*{phoneColor}">
+        <option th:value=${T(shop.helloshop.domain.entity.items.PhoneColor).BLACK} th:text="BLACK"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.PhoneColor).WHITE} th:text="WHITE"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.PhoneColor).GREEN} th:text="GREEN"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.PhoneColor).RED} th:text="RED"></option>
+        <option th:value=${T(shop.helloshop.domain.entity.items.PhoneColor).GRAY} th:text="GRAY"></option>
+      </select>
+    </div>
+
+
+    <li>이미지 파일 첨부(최대 20MB)<input type="file" name="multipartFileList"
+                        accept="image/png, image/jpeg"></li>
+
+
+    <button class="w-100 btn btn-lg btn-primary" type="submit">등록</button>
+  </form>
+</main>
+
+
+
+  </body>
+</html>

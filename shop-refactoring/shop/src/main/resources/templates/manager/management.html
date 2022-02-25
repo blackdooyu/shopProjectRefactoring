@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Shop Homepage - Start Bootstrap Template</title>
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link   th:href="@{/css/styles.css}"
+            href="/css/styles.css" rel="stylesheet" />
+</head>
+<body>
+<div th:replace="/fragments/nav.html :: nav"></div>
+
+
+<form th:if="${orderList != null}" th:action th:value="${orderItem}" method="post">
+    <table class="table table-striped">
+        <h3>주문 관리</h3>
+        <thead>
+        <tr>
+            <th>주문 id</th>
+            <th>주문자 email</th>
+            <th>주문 상태</th>
+            <th>배송 시작</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="order : ${orderList}">
+            <td th:value="${order.id}" th:text="${order.id}"></td>
+            <td  th:text="${order.email}"></td>
+            <td th:if="${order.deliveryStatus} == ${T(shop.helloshop.domain.entity.DeliveryStatus).READY}"
+             th:text="'배송준비'"></td>
+            <td th:if="${order.deliveryStatus} == ${T(shop.helloshop.domain.entity.DeliveryStatus).CANCEL}"
+                th:text="'배송취소'"></td>
+            <td th:if="${order.deliveryStatus} == ${T(shop.helloshop.domain.entity.DeliveryStatus).COMP}"
+                th:text="'배송완료'"></td>
+            <td th:if="${order.deliveryStatus} == ${T(shop.helloshop.domain.entity.DeliveryStatus).READY}">
+                <button class="w-100 btn btn-lg btn-primary" type="submit"
+                th:formaction="@{/manager/order/{id}(id=${order.id})}">배송시작</button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+
+<form th:if="${orderList == null}" th:action th:value="${orderItem}" method="post">
+    <table class="table table-striped">
+        <h3>주문 목록</h3>
+    </table>
+</form>
+
+
+<!-- Footer-->
+<footer class="py-5 bg-dark">
+    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2021</p></div>
+</footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+</body>
+</html>
