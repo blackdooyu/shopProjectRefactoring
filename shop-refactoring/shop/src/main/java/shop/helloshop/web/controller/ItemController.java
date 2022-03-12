@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -207,7 +208,7 @@ public class ItemController {
             selectSort = FindSort.Item_Recent_List;
         }
 
-        List<Item> itemList = itemService.findList(selectSort, page);
+        Page<Item> itemList = itemService.findList(selectSort, page);
 
         if (itemList == null) {
             return "redirect:/";
@@ -220,7 +221,7 @@ public class ItemController {
             itemViews.add(view);
         }
 
-        int[] count = findCount();
+        int[] count = findCount(itemList.getTotalPages());
 
         model.addAttribute("sort", sort);
         model.addAttribute("count", count);
@@ -264,22 +265,15 @@ public class ItemController {
 
     }
 
-    private int[] findCount() {
+    private int[] findCount(int pages) {
 
-        int count = itemService.findCount().intValue();
-        int pageNumber = count/16;
+        int pageCount[] = new int[pages];
 
-        if(count % 16 != 0){
-            pageNumber += 1;
+        for (int i = 0; i < pageCount.length; i++) {
+            pageCount[i] = i+1;
         }
 
-        int[] findArr =new int[pageNumber];
-
-        for(int i = 0 ; i < pageNumber ; i++){
-            findArr[i] = i+1;
-        }
-
-        return findArr;
+        return pageCount;
     }
 
     private Item createItem(ItemForm itemForm) {

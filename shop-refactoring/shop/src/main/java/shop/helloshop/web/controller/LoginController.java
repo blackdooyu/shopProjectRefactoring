@@ -39,7 +39,7 @@ public class LoginController {
     public String homepage(@Login MemberSessionDto sessionDto, Model model) {
 
 
-        List<Item> list = itemService.findHomeList();
+        List<Item> list = itemService.findHomeList().getContent();
         List<ItemViewForm> viewItemList =new ArrayList<>();
 
 

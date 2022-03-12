@@ -11,10 +11,8 @@ import shop.helloshop.domain.entity.items.Phone;
 
 import java.util.List;
 
-public interface ItemRepository extends JpaRepository<Item,Long> {
+public interface ItemRepository extends JpaRepository<Item,Long> ,ItemRepositoryCustom {
 
-    @Query("select i from Item i")
-    List<Item> itemBySortList(Pageable pageable);
 
     @Query("select count(i.id) from Item i")
     Long itemTotalCount();

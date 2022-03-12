@@ -1,6 +1,7 @@
 package shop.helloshop.domain.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -82,11 +83,11 @@ public class ItemService {
        return itemRepository.getById(id);
     }
 
-    public List<Item> findHomeList() {
+    public Page<Item> findHomeList() {
         return itemRepository.itemBySortList(PageRequest.of(0,8, Sort.by(Sort.Direction.DESC,"salesQuantity")));
     }
 
-    public List<Item> findList(String sort,int page) {
+    public Page<Item> findList(String sort,int page) {
         if (FindSort.Item_Popularity_List.equals(sort)) {
             return itemRepository.itemBySortList(PageRequest.of(page - 1, 16, Sort.by(Sort.Direction.DESC, "salesQuantity")));
         }

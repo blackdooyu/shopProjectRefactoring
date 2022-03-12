@@ -81,7 +81,7 @@ public class MemberService {
 
       Member findName = memberRepository.findByName(member.getName());
 
-        if (findName != findName) {
+        if (findName != null) {
             throw new MemberException("이미 존재하는 이름입니다.");
         }
 
