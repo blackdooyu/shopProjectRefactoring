@@ -11,7 +11,7 @@ import java.util.List;
 @Entity
 @Getter @Setter
 @Table(name = "orders")
-public class Order {
+public class Order extends CreateDate{
 
     @Id @GeneratedValue
     @Column(name = "order_id")

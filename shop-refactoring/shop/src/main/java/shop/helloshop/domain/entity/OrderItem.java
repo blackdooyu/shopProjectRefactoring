@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class OrderItem {
+public class OrderItem extends CreateDate{
 
     @Id @GeneratedValue
     @Column(name = "order_item_id")

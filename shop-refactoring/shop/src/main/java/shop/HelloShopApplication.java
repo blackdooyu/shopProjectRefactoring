@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.EntityManager;
 
+@EnableJpaAuditing
 @SpringBootApplication
 public class HelloShopApplication {
 

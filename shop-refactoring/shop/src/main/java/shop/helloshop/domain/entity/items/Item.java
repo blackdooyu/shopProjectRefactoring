@@ -3,6 +3,7 @@ package shop.helloshop.domain.entity.items;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.BatchSize;
+import shop.helloshop.domain.entity.CreateDate;
 import shop.helloshop.domain.entity.Member;
 import shop.helloshop.domain.entity.UploadFile;
 import shop.helloshop.web.exception.ItemException;
@@ -16,7 +17,7 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "type",discriminatorType = DiscriminatorType.STRING)
 @Getter @Setter
-public abstract class Item {
+public abstract class Item extends CreateDate {
 
     @Id @GeneratedValue
     @Column(name = "item_id")

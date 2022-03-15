@@ -13,7 +13,7 @@ import java.util.List;
 @Entity
 @Setter @Getter
 @EqualsAndHashCode
-public class Member {
+public class Member extends CreateDate{
 
     @Id @GeneratedValue
     @Column(name = "member_id")
@@ -27,7 +27,6 @@ public class Member {
 
     @Enumerated(EnumType.STRING)
     private MemberGrade memberGrade;
-
 
     @OneToMany(mappedBy = "member")
     private List<Item> itemList = new ArrayList<>();
